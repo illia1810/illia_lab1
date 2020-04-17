@@ -68,6 +68,7 @@
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                        @Html.ActionLink("Характеристики", "Feature", new { l_id = item.Id })
                     </td>
                 </tr>
             }

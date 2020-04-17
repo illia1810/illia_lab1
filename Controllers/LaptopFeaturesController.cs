@@ -19,10 +19,18 @@ namespace LaptopProject.Controllers
         }
 
         // GET: LaptopFeatures
-        public async Task<IActionResult> Index(int? f_id)
+        public async Task<IActionResult> Index(int? f_id, int? l_id)
         {
-            var laptopBaseContext = _context.LaptopFeature.Where(l=>l.FeatureId==f_id).Include(l => l.Feature).Include(l => l.Laptop);
-            return View(await laptopBaseContext.ToListAsync());
+            if (l_id == null)
+            {
+                var laptopBaseContext = _context.LaptopFeature.Where(l => l.FeatureId == f_id).Include(l => l.Feature).Include(l => l.Laptop);
+                return View(await laptopBaseContext.ToListAsync());
+            }
+            else
+            {
+                var laptopBaseContext = _context.LaptopFeature.Where(l => l.LaptopId == l_id).Include(l => l.Feature).Include(l => l.Laptop);
+                return View(await laptopBaseContext.ToListAsync());
+            }
         }
         
         // GET: LaptopFeatures/Details/5

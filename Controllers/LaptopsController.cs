@@ -73,8 +73,12 @@ namespace LaptopProject.Controllers
             ViewData["ColorId"] = new SelectList(_context.Color, "Id", "Color1");
             ViewData["CountryId"] = new SelectList(_context.Country, "Id", "Name");
             ViewData["CpuId"] = new SelectList(_context.Processor, "Id", "Name");
-            ViewData["ModelId"] = new SelectList(_context.Producer, "Id", "Id");
+            ViewData["ModelId"] = new SelectList(_context.Producer, "Id", "Model");
             return View();
+        }
+        public IActionResult Feature(int? l_id)
+        {
+            return RedirectToAction("Index","Laptopfeatures",new { l_id});
         }
 
         // POST: Laptops/Create
@@ -183,6 +187,9 @@ namespace LaptopProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var LF = _context.LaptopFeature.Where(lf => lf.LaptopId == id).Include(lf => lf.Feature).ToList();
+            _context.LaptopFeature.RemoveRange(LF);
+            await _context.SaveChangesAsync();
             var laptop = await _context.Laptop.FindAsync(id);
             _context.Laptop.Remove(laptop);
             await _context.SaveChangesAsync();
