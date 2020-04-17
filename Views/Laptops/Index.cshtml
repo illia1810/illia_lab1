@@ -1,0 +1,76 @@
+﻿@model IEnumerable<LaptopProject.Laptop>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    <head>
+        <style>
+            body {
+                background-image: url(https://images.unsplash.com/photo-1582056615449-5dcb2332b3b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            table {
+                background-color: rgba(255, 250, 253, 0.70);
+            }
+            .navbar-default1 {
+                background-color: #749489;
+                border-color: black;
+            }
+        </style>
+    </head>
+
+<h1>НОУТБУКИ</h1>
+
+        <a asp-action="Create">ДОДАТИ МОДЕЛЬ</a>
+    <p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Color)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Country)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cpu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Model)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color.Color1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cpu.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model.Model)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</p>
