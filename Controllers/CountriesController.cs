@@ -138,6 +138,13 @@ namespace LaptopProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var lap = _context.Laptop.Where(l => l.CountryId == id).Include(l => l.Color).Include(l => l.Cpu).Include(l => l.Model).ToList();
+            foreach (var l in lap)
+            {
+                var lapF = _context.LaptopFeature.Where(f => f.LaptopId == l.Id).Include(f => f.Feature).ToList();
+                _context.LaptopFeature.RemoveRange(lapF);
+            }
+            _context.Laptop.RemoveRange(lap);
             var country = await _context.Country.FindAsync(id);
             _context.Country.Remove(country);
             await _context.SaveChangesAsync();

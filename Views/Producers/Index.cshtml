@@ -26,6 +26,7 @@
                     @Html.DisplayFor(modelItem => item.Model)
                 </td>
                 <td>
+                    <a asp-action="Export" asp-route-id="@item.Id">Завантажити у файл Excel|</a>
                     <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Моделі</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>

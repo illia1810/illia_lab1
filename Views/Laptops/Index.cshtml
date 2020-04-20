@@ -24,6 +24,19 @@
 <h1>НОУТБУКИ</h1>
 
         <a asp-action="Create">ДОДАТИ МОДЕЛЬ</a>
+        <div>
+            <h3>Select Excel-file for download</h3>
+            @using (Html.BeginForm("Import", "Laptops", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm-excel" }))
+            {
+                <div>
+                    Download Excel-file:
+                    <input type="file" name="fileExcel" id="fileExcel" />
+                    <div>
+                        <input type="submit" value="Download" />
+                    </div>
+                </div>
+            }
+        </div>
     <p>
     <table class="table">
         <thead>
