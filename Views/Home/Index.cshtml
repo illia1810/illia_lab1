@@ -1,47 +1,61 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-    <head>
-        <style>
+<head>
+    <style>
 
-            .display-45 {
-                font-size: 3.5rem;
-                background-color: rgba(255, 250, 253, 0.70);
-                font-weight: 300;
-                line-height: 1.2;
-            }
-            
-            .text-center {
-                text-align: center !important;
-                color: white;
-                font-family: Brush Script MT cursive,URW Chancery L cursive;
-                background: rgba(255, 255, 255, 0.50);
-                line-height: 1.2;
-            }
-            .text-center1 {
-                text-align: center !important;
-                color: black;
-                font-family: Brush Script MT cursive,URW Chancery L cursive;
-                background: rgba(255, 255, 255, 0.50);
-                line-height: 1.2;
-            }
-        </style>
-    </head>
+        .display-45 {
+            font-size: 3.5rem;
+            background-color: rgba(255, 250, 253, 0.70);
+            font-weight: 300;
+            line-height: 1.2;
+        }
 
-    
+        .text-center {
+            text-align: center !important;
+            color: white;
+            font-family: Brush Script MT cursive,URW Chancery L cursive;
+            background: rgba(255, 255, 255, 0.50);
+            line-height: 1.2;
+        }
 
-    <body>
-        <div class="text-center1">
-            <h1 class="display-45"> ЛАСКАВО ПРОСИМО</h1>
-            <div class="text-center">
-                <a asp-action="Laptops" class="btn">ВЕЛИКИЙ ВИБІР НОУТБУКІВ</a>
-            </div>
-            <div>
-                <p>
-                    <div style="width:100%;position: relative;height: 0;padding-bottom: 75%; padding-left:40%">
-                        <div style="position: center; z-index: 101; top: 0; left: 0; right: 0; bottom: 0;"></div><iframe src="https://cnet2.cbsistatic.com/img/OKtxZ1f0evC6tgqdIEr3BnvUiKA=/1200x675/2017/02/22/d95e8518-beb0-45c3-aba1-d1122bf0663d/three-laptops-01.jpg" width="100%" height="100%" style="position:absolute; z-index:100; left: 0; top: 0; right: 0; bottom: 0;" frameborder="1" class="giphy-embed" allowfullscreen=""></iframe>
-                    </div>
-                </p>
-            </div>
+        .text-center1 {
+            text-align: center !important;
+            color: black;
+            font-family: Brush Script MT cursive,URW Chancery L cursive;
+            background: rgba(255, 255, 255, 0.50);
+            line-height: 1.2;
+        }
+    </style>
+</head>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Вихід" />
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Вхід</a>
+    <a asp-controller="Account" asp-action="Register">Реєстація</a>
+}
+
+
+<body>
+    <div class="text-center1">
+        <h1 class="display-45"> ЛАСКАВО ПРОСИМО</h1>
+        <div class="text-center">
+            <a asp-action="Laptops" class="btn">ВЕЛИКИЙ ВИБІР НОУТБУКІВ</a>
+        </div>
+        <div>
+            <p>
+                <div style="width:100%;position: relative;height: 0;padding-bottom: 75%; padding-left:40%">
+                    <div style="position: center; z-index: 101; top: 0; left: 0; right: 0; bottom: 0;"></div><iframe src="https://cnet2.cbsistatic.com/img/OKtxZ1f0evC6tgqdIEr3BnvUiKA=/1200x675/2017/02/22/d95e8518-beb0-45c3-aba1-d1122bf0663d/three-laptops-01.jpg" width="100%" height="100%" style="position:absolute; z-index:100; left: 0; top: 0; right: 0; bottom: 0;" frameborder="1" class="giphy-embed" allowfullscreen=""></iframe>
+                </div>
+            </p>
+        </div>
 </body>
     </div>

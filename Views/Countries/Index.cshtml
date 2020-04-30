@@ -1,35 +1,57 @@
 ﻿@model IEnumerable<LaptopProject.Country>
-
+@using System.Security.Claims;
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>СПИСОК КРАЇН-ВИРОБНИКІВ</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+    var customUserClaim = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == "customType") : null;
+    var customTypeValue = customUserClaim != null ? customUserClaim.Value : User.Identity.Name;
+    var roleOfUser = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value : "User";
+    @if (roleOfUser == "admin")
+    {
+        <p>
+            <a asp-action="Create">Додати</a>
+        </p>
+        }
+    }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                                var customUserClaim = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == "customType") : null;
+                                var customTypeValue = customUserClaim != null ? customUserClaim.Value : User.Identity.Name;
+                                var roleOfUser = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value : "User";
+                                @if (roleOfUser == "admin")
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
 
-<p>
-    <a asp-action="Create">Додати</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Моделі</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                }
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id">Моделі</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>

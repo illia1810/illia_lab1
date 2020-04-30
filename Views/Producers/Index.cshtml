@@ -1,48 +1,68 @@
 ﻿@model IEnumerable<LaptopProject.Producer>
-
+@using System.Security.Claims;
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>СПИСОК ВИРОБНИКІВ</h1>
-
-<p>
-    <a asp-action="Create">Додати</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    <a asp-action="Export" asp-route-id="@item.Id">Завантажити у файл Excel|</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Моделі</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="container">
-    <div id="chart1"> </div>
-</div>
-@section Scripts
+@if (User.Identity.IsAuthenticated)
+{
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+    var customUserClaim = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == "customType") : null;
+    var customTypeValue = customUserClaim != null ? customUserClaim.Value : User.Identity.Name;
+    var roleOfUser = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value : "User";
+    @if (roleOfUser == "admin")
     {
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
+        <p>
+            <a asp-action="Create">Додати</a>
+        </p>
+        }
+    }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Model)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                                var customUserClaim = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == "customType") : null;
+                                var customTypeValue = customUserClaim != null ? customUserClaim.Value : User.Identity.Name;
+                                var roleOfUser = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value : "User";
+                                @if (roleOfUser == "admin")
+                                {
+                                    <a asp-action="Delete" asp - route - id="@item.Id"> Видалити </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Змінити|</a>
+                                }
+                            }
+                            <a asp-action="Export" asp-route-id="@item.Id">Завантажити у файл Excel|</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Моделі</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="container">
+            <div id="chart1"> </div>
+        </div>
+        @section Scripts
+    {
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script>
                 google.charts.load('current', { 'packages': ['corechart'], callback: drawChart })
 
                 function drawChart() {
@@ -59,6 +79,6 @@
                     })
                 }
 
-    </script>
+            </script>
 
-}
+        }

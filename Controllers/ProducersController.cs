@@ -82,7 +82,7 @@ namespace LaptopProject.Controllers
                 {
                     worksheet.Cell(i + 2, 1).Value = laptops[i].Name;
                     worksheet.Cell(i + 2, 2).Value = laptops[i].Color.Color1;
-                    worksheet.Cell(i + 2, 3).Value = laptops[i].CpuId;
+                    worksheet.Cell(i + 2, 3).Value = laptops[i].Cpu.Name;
                     worksheet.Cell(i + 2, 4).Value = laptops[i].Country.Name;
                 }
             }

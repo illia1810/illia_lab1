@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "ADMIN";
+}
+    <head>
+        <style>
+
+            .display-45 {
+                font-size: 3.5rem;
+                background-color: rgba(255, 250, 253, 0.70);
+                font-weight: 300;
+                line-height: 1.2;
+            }
+
+            .text-center {
+                text-align: left;
+                color: black;
+                font-family: Brush Script MT cursive,URW Chancery L cursive;
+                background: rgba(255, 255, 255, 0.50);
+                line-height: 1.2;
+            }
+
+            
+            }
+        </style>
+    </head>
+<h1>ADMIN</h1>
+
+<div class="text-center">
+    <a asp-action="Users" class="btn">Список користувачів</a>
+</div>
+
+<div class="text-center">
+    <a asp-action="Roles" class="btn">Список ролей</a>
+</div>

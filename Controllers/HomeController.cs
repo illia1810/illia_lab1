@@ -17,7 +17,20 @@ namespace LaptopProject.Controllers
         {
             _logger = logger;
         }
+        public IActionResult Users()
+        {
+            return RedirectToAction("Index", "Users");
+        }
 
+        public IActionResult AdminPage()
+        {
+            return View();
+        }
+
+        public IActionResult Roles()
+        {
+            return RedirectToAction("Index", "Roles");
+        }
         public IActionResult Index()
         {
             return View();
